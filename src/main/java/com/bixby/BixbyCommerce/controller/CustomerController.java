@@ -2,6 +2,7 @@ package com.bixby.BixbyCommerce.controller;
 
 import com.bixby.BixbyCommerce.dto.CreateCustomerDTO;
 import com.bixby.BixbyCommerce.dto.CustomerDTO;
+import com.bixby.BixbyCommerce.dto.CustomerLoginDTO;
 import com.bixby.BixbyCommerce.dto.UpdateCustomerDTO;
 import com.bixby.BixbyCommerce.service.CustomerService;
 import jakarta.validation.Valid;
@@ -55,4 +56,10 @@ public class CustomerController {
         }
 
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody CustomerLoginDTO loginDTO){
+        return customerService.login(loginDTO);
+    }
+
 }

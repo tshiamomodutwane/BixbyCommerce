@@ -2,6 +2,7 @@ package com.bixby.BixbyCommerce.service;
 
 import com.bixby.BixbyCommerce.dto.CreateCustomerDTO;
 import com.bixby.BixbyCommerce.dto.CustomerDTO;
+import com.bixby.BixbyCommerce.dto.CustomerLoginDTO;
 import com.bixby.BixbyCommerce.dto.UpdateCustomerDTO;
 import com.bixby.BixbyCommerce.model.Customers;
 import com.bixby.BixbyCommerce.repositories.CustomerRepository;
@@ -24,6 +25,17 @@ public class CustomerService {
         dto.setName(customers.getName());
         dto.setEmail(customers.getEmail());
         return dto;
+    }
+
+    public String login(CustomerLoginDTO loginDTO){
+        Customers customers = customerRepository.findByEmail(loginDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        if (!customers.getPassword().equals(loginDTO.getPassword())){
+            throw new RuntimeException("Invalid credentials");
+        } else {
+            return "Login is successful " + customers.getName();
+        }
     }
 
     public CustomerDTO createCustomer(CreateCustomerDTO dto){
