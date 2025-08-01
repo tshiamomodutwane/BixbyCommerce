@@ -1,8 +1,6 @@
 package com.bixby.BixbyCommerce.service;
 
-import com.bixby.BixbyCommerce.dto.AdminDTO;
-import com.bixby.BixbyCommerce.dto.CreateAdminDTO;
-import com.bixby.BixbyCommerce.dto.UpdateCustomerDTO;
+import com.bixby.BixbyCommerce.dto.*;
 import com.bixby.BixbyCommerce.model.Admins;
 import com.bixby.BixbyCommerce.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +46,7 @@ public class AdminService {
                 .orElse(null);
     }
 
-    public AdminDTO updateAdmin(Integer id, UpdateCustomerDTO dto){
+    public AdminDTO updateAdmin(Integer id, UpdateAdminDTO dto){
         return adminRepository.findById(id).map(admins -> {
             if (dto.getName()!=null){
                 admins.setName(dto.getName());
@@ -71,6 +69,17 @@ public class AdminService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public String login(AdminLoginDTO loginDTO){
+        Admins admins = adminRepository.findByEmail(loginDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException("Admin not found"));
+
+        if (!admins.getPassword().equals(loginDTO.getPassword())){
+            throw new RuntimeException("Invalid credentials");
+        } else {
+            return "Login is successful " + admins.getName();
         }
     }
 }

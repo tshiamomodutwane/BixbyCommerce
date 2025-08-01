@@ -73,10 +73,12 @@ public class CategoryService {
         return mapToDTO(updated);
     }
 
-    public void deleteCategory(Long id){
+    public boolean deleteCategory(Long id){
         if (!categoryRepository.existsById(id)){
             throw new RuntimeException("Category not found");
+
         }
         categoryRepository.deleteById(id);
+        return true;
     }
 }

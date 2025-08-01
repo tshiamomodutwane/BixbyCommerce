@@ -1,6 +1,8 @@
 package com.bixby.BixbyCommerce.service;
 
 import com.bixby.BixbyCommerce.dto.AddressDTO;
+import com.bixby.BixbyCommerce.dto.CreateAddressDTO;
+import com.bixby.BixbyCommerce.dto.CustomerDTO;
 import com.bixby.BixbyCommerce.model.Addresses;
 import com.bixby.BixbyCommerce.model.Customers;
 import com.bixby.BixbyCommerce.repositories.AddressRepository;
@@ -36,6 +38,28 @@ public class AddressService {
 
         return addressRepository.save(address);
     }
+
+    public Addresses addAddress(CreateAddressDTO dto) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setStreet(dto.getStreet());
+        addressDTO.setCity(dto.getCity());
+        addressDTO.setZipCode(dto.getZipCode());
+        addressDTO.setType(dto.getType());
+        addressDTO.setCustomerId(dto.getCustomerId());
+
+        return addAddress(addressDTO);
+    }
+
+    public AddressDTO mapToDTO(Addresses addresses){
+        AddressDTO dto = new AddressDTO();
+        dto.setCity(addresses.getCity());
+        dto.setType(addresses.getType());
+        dto.setStreet(addresses.getStreet());
+        dto.setZipCode(addresses.getZipCode());
+        return dto;
+    }
+
+
 
     public List<Addresses> getAllAddresses() {
         return addressRepository.findAll();

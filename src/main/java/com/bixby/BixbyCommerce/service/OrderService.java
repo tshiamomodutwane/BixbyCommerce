@@ -101,11 +101,12 @@ public class OrderService {
     }
 
 
-    public void deleteOrder(Long id) {
+    public Boolean deleteOrder(Long id) {
         if (!ordersRepository.existsById(id)) {
             throw new RuntimeException("Order not found");
         }
         ordersRepository.deleteById(id);
+        return true;
     }
 
 

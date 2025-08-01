@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CartService {
 
-    @Autowired
+
     private final CartRepository cartRepository;
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;

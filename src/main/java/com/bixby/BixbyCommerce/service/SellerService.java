@@ -113,15 +113,16 @@ public class SellerService {
         }
     }
 
-    public SellerDTO login(SellerLoginDTO dto){
+    public String login(SellerLoginDTO dto) {
         Sellers sellers = sellerRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
 
-        if (!sellers.getPassword().equals(dto.getPassword())){
+        if (!sellers.getPassword().equals(dto.getPassword())) {
             throw new RuntimeException("Invalid credentials");
-        } else {
-            return mapToDTO(sellers);
         }
+
+        return "Login successful for " + sellers.getFullName();
     }
+
 
 }
